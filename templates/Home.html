@@ -7,11 +7,10 @@
 </head>
 <body class="bg-slate-800">
 {% include "Nav.html" %}
-<div class="container bg-slate-700 flex gap-7 p-5">
+<div class="bg-slate-700 grid grid-cols-5 gap-[2vw] p-5">
     {% for Key, Prod in Prods.items %}
-    	<div class="relative bg-slate-900 min-h-[5vh] min-w-[20vw]
-    	 text-slate-200 p-2">
-            <img class="bg-contain size-max" src="{{ Prod.Img }}">
+    	<div class="bg-slate-900 flex flex-col items-center h-[100%] w-[100%] p-[1vw] text-slate-200">
+            <img class="size-[80%]" src="{{ Prod.Img }}">
             <p>{{ Key }}</p>
             <p class="">{{ Prod.Price }} Rs</p>
         </div>
