@@ -1,0 +1,23 @@
+{% load Filters %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950">
+    <div class="flex bg-slate-800 text-slate-200">
+        <p class="text-2xl">{{ Prod.ID }}</p>
+    </div>
+    <div class="flex">
+        {% for Comp in Comps %}
+        	<div class="bg-blue-950 text-slate-200">
+                <img src="{{ Comp.src }}" alt="uhu">
+                {{ Comp.name }} - {{ Comp.price }}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

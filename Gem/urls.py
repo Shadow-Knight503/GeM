@@ -22,4 +22,5 @@ import Home.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Home.views.home, name="Home Page"),
+    path('products/<str:p_nm>', Home.views.prod, name="Product Page")
 ]
