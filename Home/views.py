@@ -17,20 +17,14 @@ def Scraper(url):
     session.headers['User-Agent'] = USER_AGENT
     session.headers['Accept-Language'] = LANGUAGE
     session.headers['Content-Language'] = LANGUAGE
-    cnt = session.get(f"https://www.amazon.in/s?k={url}").text
+    if "apple" in url:
+        print(url)
+        cnt = session.get(f"https://flipkart.com/search?q={url}").text
+    else:
+        print(url)
+        cnt = session.get(f"https://www.amazon.in/s?k={url}").text
     return cnt
 
-# res = Scraper()
-# soup = BeautifulSoup(res, 'html.parser')
-# for sup in soup.find_all('li', {'class': 'bn-group'}):
-#     itms = []
-#     for itm in sup.find_all('li', {'class': 'bn-link'}):
-#         print(itm)
-#         itms.append(f"{itm.findChild()}")
-#     prod.append({
-#         'Name': f"{sup.findChild('strong').text}",
-#         'Cnts': itms
-#     })
 def home(request):
     print("Initializing...")
     cnt = {}
@@ -42,32 +36,32 @@ def home(request):
 
     return render(request, "Home.html", {'Prods': cnt})
 
-
 def prod(request, p_nm):
     prod = Db.collection("GeM").document(p_nm).get().to_dict()
     prod['ID'] = p_nm
     res = Scraper("Samsung+Galaxy+Tab+S6+Lite+LTE+P619N")
+    res2 = Scraper("apple+phones")
     soup = BeautifulSoup(res, 'html.parser')
-    itms = []
-    # print(soup.find_all()
+    soup2 = BeautifulSoup(res2, 'html.parser')
+    items = []
+    print(soup)
     for sup in soup.find_all('div', {'data-component-type': 's-search-result'})[:5]:
-        itm = {
+        item = {
             'src': sup.find('img', {'class': 's-image'})['src'],
             'name': sup.find('div', {'data-cy': 'title-recipe'}).text,
             'price': sup.find('span', {'class': 'a-price-whole'}).text
         }
-        itms.append(itm)
-        print(itms)
-        # for itm in sup.find_all('li', {'class': 'bn-link'}):
-        #     print(itm)
-        #     itms.append(f"{itm.findChild()}")
-        # prod.append({
-        #     'Name': f"{sup.findChild('strong').text}",
-        #     'Cnts': itms
-        # })
+        items.append(item)
+        print(items)
+    for sup in soup2.find_all('div', class_='_1AtVbE'):
+        item = {'src': sup.find('img', class_='_396cs4')['src'],
+                'name': sup.find('div', class_='_4rR01T').text,
+                'price': sup.find('div', class_='_30jeq3').text}
+        items.append(item)
+    print(items)
     ctx = {
         'Prod': prod,
-        'Comps': itms,
+        'Comps': items,
     }
 
     return render(request, "Prod.html", ctx)
