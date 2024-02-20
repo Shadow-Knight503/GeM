@@ -63,5 +63,4 @@ def prod(request, p_nm):
         'Prod': prod,
         'Comps': items,
     }
-
     return render(request, "Prod.html", ctx)
