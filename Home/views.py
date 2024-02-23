@@ -13,6 +13,10 @@ Db = firestore.client()
 def Scraper(url):
     USER_AGENT = 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405'
     LANGUAGE = "en-US,en;q=0.5"
+    proxy = {
+        # "https": "https://91.25.93.174:3128",
+        "https": "https://173.249.37.45:5005",
+    }
     session = requests.Session()
     session.headers['User-Agent'] = USER_AGENT
     session.headers['Accept-Language'] = LANGUAGE
@@ -44,8 +48,8 @@ def home(request):
 
 
 def prod(request, p_nm):
-    prod = Db.collection("GeM").document(p_nm).get().to_dict()
-    prod['ID'] = p_nm
+    prd = Db.collection("GeM").document(p_nm).get().to_dict()
+    prd['ID'] = p_nm
     res = Scraper("Samsung+Galaxy+Tab+S6+Lite+LTE+P619N")
     soup = BeautifulSoup(res, 'html.parser')
     itms = []
@@ -66,7 +70,7 @@ def prod(request, p_nm):
         #     'Cnts': itms
         # })
     ctx = {
-        'Prod': prod,
+        'Prod': prd,
         'Comps': itms,
     }
 

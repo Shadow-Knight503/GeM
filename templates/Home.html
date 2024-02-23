@@ -10,8 +10,9 @@
 <div class="container bg-slate-700 flex gap-4 p-5">
     {% for Key, Prod in Prods.items %}
     	<div class="relative bg-slate-900 min-h-[5vh] min-w-[20vw] text-slate-200 p-2">
-            <img class="bg-contain size-max" src="{{ Prod.Img }}">
-            <p>{{ Key }}</p>
+            <a href="./products/{{ Key }}">
+                <img class="bg-contain size-max" src="{{ Prod.Img }}"></a>
+            <p>{{ Prod.Name }}</p>
             <p class="">{{ Prod.Price }} Rs</p>
         </div>
     {% endfor %}
