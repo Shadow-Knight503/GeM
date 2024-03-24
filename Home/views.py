@@ -24,6 +24,7 @@ def Scraper(url):
     cnt = session.get(f"https://www.amazon.in/s?k={url}").text
     return cnt
 
+
 # res = Scraper()
 # soup = BeautifulSoup(res, 'html.parser')
 # for sup in soup.find_all('li', {'class': 'bn-group'}):
@@ -48,30 +49,24 @@ def home(request):
 
 
 def prod(request, p_nm):
+    ref = Db.collection("GeM").document(p_nm)
     prd = Db.collection("GeM").document(p_nm).get().to_dict()
     prd['ID'] = p_nm
-    res = Scraper("Samsung+Galaxy+Tab+S6+Lite+LTE+P619N")
-    soup = BeautifulSoup(res, 'html.parser')
-    itms = []
-    # print(soup.find_all()
-    for sup in soup.find_all('div', {'data-component-type': 's-search-result'})[:5]:
-        itm = {
-            'src': sup.find('img', {'class': 's-image'})['src'],
-            'name': sup.find('div', {'data-cy': 'title-recipe'}).text,
-            'price': sup.find('span', {'class': 'a-price-whole'}).text
-        }
-        itms.append(itm)
-        print(itms)
-        # for itm in sup.find_all('li', {'class': 'bn-link'}):
-        #     print(itm)
-        #     itms.append(f"{itm.findChild()}")
-        # prod.append({
-        #     'Name': f"{sup.findChild('strong').text}",
-        #     'Cnts': itms
-        # })
+    # res = Scraper(f"{prd['Model']}+{prd['Name'].split()[:3]}".replace(' ', '+')[:20])
+    # soup = BeautifulSoup(res, 'html.parser')
+    # itms = []
+    # for sup in soup.find_all('div', {'data-component-type': 's-search-result'})[:5]:
+    #     if "SponsoredSponsored" not in sup.find('div', {'data-cy': 'title-recipe'}).text:
+    #         itm = {
+    #             'src': sup.find('img', {'class': 's-image'})['src'],
+    #             'name': sup.find('div', {'data-cy': 'title-recipe'}).text,
+    #             'price': sup.find('span', {'class': 'a-price-whole'}).text
+    #         }
+    #         itms.append(itm)
+    # ref.update({'Amazon': itms})
     ctx = {
         'Prod': prd,
-        'Comps': itms,
+        # 'Comps': itms,
     }
 
     return render(request, "Prod.html", ctx)
