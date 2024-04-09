@@ -1,15 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<<<<<<< Updated upstream
+=======
+    <link href='https://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+>>>>>>> Stashed changes
     <meta charset="UTF-8">
-    <title>Test</title>
+    <title>GemCmp HomePage</title>
     <script src="https://cdn.tailwindcss.com"></script>
+<<<<<<< Updated upstream
 </head>
 <body class="bg-slate-800">
 {% include "Nav.html" %}
 <div class="container bg-slate-700 flex gap-4 p-5">
     {% for Key, Prod in Prods.items %}
     	<div class="relative bg-slate-900 min-h-[5vh] min-w-[20vw] text-slate-200 p-2">
+=======
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'Conc': ['Concert One', 'system-ui', 'sans-serif'],
+                        'Comf': ['Comfortaa', 'system-ui', 'sans-serif'],
+                        'Oswd': ['Oswald', 'system-ui', 'sans-serif'],
+                    },
+                    container: {
+                        center: true,
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-800">
+{% include "Nav.html" %}
+<div class="container bg-slate-700 mt-5 flex flex-wrap items-stretch rounded-lg
+    max-w-[87vw] gap-4 l-5 p-5 place-content-center">
+    {% for Key, Prod in Prods.items %}
+    	<div class="bg-slate-900 h-auto max-w-[25vw] text-slate-200 p-2 rounded-md">
+>>>>>>> Stashed changes
             <a href="./products/{{ Key }}">
                 <img class="bg-contain size-max" src="{{ Prod.Img }}"></a>
             <p>{{ Prod.Name }}</p>

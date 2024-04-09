@@ -48,6 +48,7 @@ def home(request):
 
 
 def prod(request, p_nm):
+<<<<<<< Updated upstream
     prd = Db.collection("GeM").document(p_nm).get().to_dict()
     prd['ID'] = p_nm
     res = Scraper("Samsung+Galaxy+Tab+S6+Lite+LTE+P619N")
@@ -69,6 +70,24 @@ def prod(request, p_nm):
         #     'Name': f"{sup.findChild('strong').text}",
         #     'Cnts': itms
         # })
+=======
+    # ref = Db.collection("GeM").document(p_nm)
+    prd = Db.collection("GeM").document(p_nm).get().to_dict()
+    prd['ID'] = p_nm
+    # res = Scraper(f"{prd['Model']}+{prd['Name'].split()[:3]}".replace(' ', '+')[:20])
+    # soup = BeautifulSoup(res, 'html.parser')
+    # itms = []
+    # for sup in soup.find_all('div', {'data-component-type': 's-search-result'})[:5]:
+    #     if "SponsoredSponsored" not in sup.find('div', {'data-cy': 'title-recipe'}).text:
+    #         itm = {
+    #             'src': sup.find('img', {'class': 's-image'})['src'],
+    #             'name': sup.find('div', {'data-cy': 'title-recipe'}).text,
+    #             'price': sup.find('span', {'class': 'a-price-whole'}).text
+    #         }
+    #         itms.append(itm)
+    # ref.update({'Amazon': itms})
+    # print(f"{prd}")
+>>>>>>> Stashed changes
     ctx = {
         'Prod': prd,
         'Comps': itms,

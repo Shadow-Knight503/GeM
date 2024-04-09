@@ -3,13 +3,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
     <meta charset="UTF-8">
-    <title></title>
+    <title>GeM - {{ Prod.Name }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'Comf': ['Comfortaa', 'system-ui', 'sans-serif'],
+                        'Oswd': ['Oswald', 'system-ui', 'sans-serif'],
+                    },
+                    container: {
+                        center: true,
+                    }
+                }
+            }
+        }
+    </script>
 </head>
+<<<<<<< Updated upstream
 <body class="bg-slate-950">
     <div class="flex bg-slate-800 text-slate-200">
         <p class="text-2xl">{{ Prod.ID }}</p>
+=======
+<body class="bg-slate-800">
+    {% include "Nav.html" %}
+    <div class="container p-3 max-w-[75vw] rounded-lg bg-slate-900 mt-5 text-slate-200">
+        <div class="flex gap-5">
+            <img class="my-2 rounded" alt="{{ Prod.Name }}" src="{{ Prod.Img }}">
+            <div class="font-Comf">
+                <p class="text-xl">{{ Prod.Name }}<br>{{ Prod.Model }}</p>
+                <p class="text-3xl mt-3">{{ Prod.Price }}</p>
+            </div>
+        </div>
+        <p class="font-Oswd text-2xl">Choices from Amazon:</p>
+        <div class="flex gap-3 font-Comf text-lg">
+            {% for Amz in Prod.Amazon %}
+                <div class="bg-blue-900 hover:-translate-y-2 ease-in p-2 max-w-[15rem] max-h-[20rem] rounded-lg">
+                    <img class="h-[10rem] rounded-lg bg-cover w-auto"
+                         alt="{{ Amz.name }}" src="{{ Amz.src }}">
+                    <p class="mt-2 text-sm">{{ Amz.name|tnc:"8" }}</p>
+                    <p class="text-xl flex
+                        {% if Prod.Price|inty <= Amz.price|inty %} text-red-600
+                        {% else %} text-green-400{% endif %}">
+                        ₹{{ Amz.price }}
+                    <span class="text-xs flex ml-2 mt-[0.5rem]">
+                        {% if Prod.Price|inty > Amz.price|inty %}
+                        	<svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                 class="w-[2ch] h-[2ch]">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"></path>
+                            </svg>
+                        {% else %}
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                 class="w-[2ch] h-[2ch]">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18"></path>
+                            </svg>
+                        {% endif %}
+                        {{ Amz.price|prcm:Prod.Price }}</span></p>
+                </div>
+            {% empty %}
+                <p>No similar products found</p>
+            {% endfor %}
+        </div>
+>>>>>>> Stashed changes
     </div>
     <div class="flex">
         {% for Comp in Comps %}
